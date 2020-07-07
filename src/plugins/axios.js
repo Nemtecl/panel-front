@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 /* eslint-disable no-undef */
 import axios from 'axios';
 import { toast } from 'react-toastify';
@@ -5,6 +6,15 @@ import { toast } from 'react-toastify';
 export function setup() {
   axios.defaults.baseURL = '/api';
   axios.defaults.headers.common.Accept = 'application/json';
+
+  axios.interceptors.request.use(async (r) => {
+    const token = localStorage.getItem('token') ? JSON.parse(localStorage.getItem('token')) : null;
+    if (token) {
+      r.headers.authorization = `Bearer ${token}`;
+    }
+    return r;
+  });
+
 
   axios.interceptors.response.use((r) => r.data, (err) => {
     const r = err.response;

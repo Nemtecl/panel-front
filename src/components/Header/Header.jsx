@@ -71,12 +71,6 @@ function HeaderComponent(props) {
     <Row className={css(styles.container)} vertical="center" horizontal="space-between" {...otherProps}>
       <span className={css(styles.title)}>{title}</span>
       <Row vertical="center">
-        <div className={css(styles.iconStyles)}>
-          <IconSearch />
-        </div>
-        <div className={css(styles.iconStyles)}>
-          <IconBellNew />
-        </div>
         <div className={css(styles.separator)} />
         <Row vertical="center">
           <span className={css(styles.name, styles.cursorPointer)}>Alexander Bolton</span>
