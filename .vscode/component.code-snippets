@@ -1,0 +1,58 @@
+{
+    "Functional React component": {
+        "prefix": "fcomp",
+        "scope": "javascriptreact,javascript,typescript",
+        "body": [
+            "import React from 'react';",
+            "import propTypes from 'prop-types';",
+            "",
+            "const $1 = () => (",
+            "$0",
+            ");",
+            "",
+            "$1.propTypes = {",
+            "",
+            "};",
+            "",
+            "$1.defaultProps = {",
+            "",
+            "};",
+            "",
+            "export default $1;"
+        ]
+    },
+    "Class React component": {
+        "prefix": "comp",
+        "scope": "javascriptreact,javascript,typescript",
+        "body": [
+            "import React, { Component } from 'react';",
+            "import propTypes from 'prop-types';",
+            "",
+            "class $1 extends Component {",
+            "\tconstructor() {",
+            "\t\tsuper();",
+            "",
+            "\t\tthis.state = {",
+            "\t\t\t",
+            "\t\t};",
+            "\t}",
+            "",
+            "\trender() {",
+            "\t\treturn (",
+            "\t\t\t$0",
+            "\t\t);",
+            "\t}",
+            "}",
+            "",
+            "$1.propTypes = {",
+            "",
+            "};",
+            "",
+            "$1.defaultProps = {",
+            "",
+            "};",
+            "",
+            "export default $1;"
+        ]
+    }
+  }
