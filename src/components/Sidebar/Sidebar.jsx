@@ -3,6 +3,7 @@
 import React, {
   useCallback, useEffect, useState, useRef,
 } from 'react';
+import propTypes from 'prop-types';
 import { Column, Row } from 'simple-flexbox';
 import { StyleSheet, css } from 'aphrodite';
 import classnames from 'classnames';
@@ -73,7 +74,7 @@ const styles = StyleSheet.create({
   },
 });
 
-function Sidebar({ onChange, selectedItem }) {
+const Sidebar = ({ onChange, selectedItem, menuItems }) => {
   const [expanded, setExpanded] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
   const input1 = useRef(null);
@@ -81,15 +82,9 @@ function Sidebar({ onChange, selectedItem }) {
   const [, updateState] = React.useState();
   const forceUpdate = useCallback(() => updateState({}), []);
 
-  /**
-     * This is to fix this issue:
-     * https://github.com/llorentegerman/react-admin-dashboard/issues/8
-     * I haven't been able to reproduce this bug in Safari 13.0.5 (14608.5.12)
-     */
   useEffect(() => {
     setIsMobile(window.innerWidth <= 768);
     forceUpdate();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [window.innerWidth]);
 
   const onItemClicked = (item) => {
@@ -129,55 +124,18 @@ function Sidebar({ onChange, selectedItem }) {
         >
           <LogoComponent />
           <Column>
-            <MenuItemComponent
-              title="Overview"
-              icon={IconOverview}
-              onClick={() => onItemClicked('Overview')}
-              active={selectedItem === 'Overview'}
-            />
-            <MenuItemComponent
-              title="Tickets"
-              icon={IconTickets}
-              onClick={() => onItemClicked('Tickets')}
-              active={selectedItem === 'Tickets'}
-            />
-            <MenuItemComponent
-              title="Ideas"
-              icon={IconIdeas}
-              onClick={() => onItemClicked('Ideas')}
-              active={selectedItem === 'Ideas'}
-            />
-            <MenuItemComponent
-              title="Contacts"
-              icon={IconContacts}
-              onClick={() => onItemClicked('Contacts')}
-              active={selectedItem === 'Contacts'}
-            />
-            <MenuItemComponent
-              title="Agents"
-              icon={IconAgents}
-              onClick={() => onItemClicked('Agents')}
-              active={selectedItem === 'Agents'}
-            />
-            <MenuItemComponent
-              title="Articles"
-              icon={IconArticles}
-              onClick={() => onItemClicked('Articles')}
-              active={selectedItem === 'Articles'}
-            />
+            {
+              menuItems.map((o) => (
+                <MenuItemComponent
+                  title={o.title}
+                  icon={o.icon}
+                  onClick={() => onItemClicked(o.key)}
+                  active={selectedItem === o.key}
+                  key={o.key}
+                />
+              ))
+            }
             <div className={css(styles.separator)} />
-            <MenuItemComponent
-              title="Settings"
-              icon={IconSettings}
-              onClick={() => onItemClicked('Settings')}
-              active={selectedItem === 'Settings'}
-            />
-            <MenuItemComponent
-              title="Subscription"
-              icon={IconSubscription}
-              onClick={() => onItemClicked('Subscription')}
-              active={selectedItem === 'Subscription'}
-            />
           </Column>
         </Column>
         {isMobile && expanded && (
@@ -190,5 +148,17 @@ function Sidebar({ onChange, selectedItem }) {
     </div>
   );
 }
+
+Sidebar.propTypes = {
+  menuItems: propTypes.arrayOf(
+    propTypes.shape({
+      key: propTypes.string.isRequired,
+      title: propTypes.string.isRequired,
+      icon: propTypes.string.isRequired,
+    }),
+  ).isRequired,
+  selectedItem: propTypes.string.isRequired,
+  onChange: propTypes.func.isRequired,
+};
 
 export default Sidebar;

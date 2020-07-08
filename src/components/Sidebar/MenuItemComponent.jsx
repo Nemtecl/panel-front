@@ -1,5 +1,5 @@
 import React from 'react';
-import { bool, func, string } from 'prop-types';
+import propTypes from 'prop-types';
 import { Row } from 'simple-flexbox';
 import { StyleSheet, css } from 'aphrodite';
 import classnames from 'classnames';
@@ -32,24 +32,20 @@ const styles = StyleSheet.create({
   },
 });
 
-function MenuItemComponent(props) {
-  const {
-    active, icon, title, ...otherProps
-  } = props;
-  const Icon = icon;
+function MenuItemComponent({ active, icon, title, ...otherProps}) {
   return (
     <Row className={classnames(css(styles.container, active && styles.activeContainer), 'menu-item')} vertical="center" {...otherProps}>
       {active && <div className={classnames(css(styles.activeBar), 'active-bar')} />}
-      <Icon fill={active && '#FFAF25'} opacity={!active && '0.4'} />
+      <span className={classnames(icon, active ? 'yellow' : 'light-gray')} />
       <span className={classnames(css(styles.title, active && styles.activeTitle), { 'active-title': active }, 'title')}>{title}</span>
     </Row>
   );
 }
 
 MenuItemComponent.propTypes = {
-  active: bool,
-  icon: func,
-  title: string,
+  active: propTypes.bool.isRequired,
+  icon: propTypes.string.isRequired,
+  title: propTypes.string.isRequired,
 };
 
 export default MenuItemComponent;
