@@ -20,7 +20,7 @@ code {
 
 
 $colors: ("yellow": $yellow, "gray": $gray, "dark": $dark, "light-dark": $light-dark,
-        "light-gray": $light-gray, "blue-gray": $blue-gray);
+      "light-gray": $light-gray, "blue-gray": $blue-gray);
 
 @each $name, $color in $colors {
     .#{$name} {

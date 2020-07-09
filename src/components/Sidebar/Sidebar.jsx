@@ -1,3 +1,6 @@
+/* eslint-disable no-restricted-globals */
+/* eslint-disable global-require */
+/* eslint-disable no-return-assign */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 import React, {
@@ -9,14 +12,6 @@ import { StyleSheet, css } from 'aphrodite';
 import classnames from 'classnames';
 import LogoComponent from './LogoComponent';
 import MenuItemComponent from './MenuItemComponent';
-import IconOverview from '../../assets/icon-overview.js';
-import IconTickets from '../../assets/icon-tickets.js';
-import IconIdeas from '../../assets/icon-ideas.js';
-import IconContacts from '../../assets/icon-contacts';
-import IconAgents from '../../assets/icon-agents';
-import IconArticles from '../../assets/icon-articles';
-import IconSettings from '../../assets/icon-settings';
-import IconSubscription from '../../assets/icon-subscription';
 import IconBurger from '../../assets/icon-burger';
 import './Sidebar.scss';
 
@@ -60,12 +55,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0,0,0,.50)',
     zIndex: 900,
   },
-  separator: {
-    borderTop: '1px solid #DFE0EB',
-    marginTop: 16,
-    marginBottom: 16,
-    opacity: 0.06,
-  },
   hide: {
     left: -255,
   },
@@ -74,7 +63,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const Sidebar = ({ onChange, selectedItem, menuItems }) => {
+const Sidebar = ({ menuItems }) => {
   const [expanded, setExpanded] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
   const input1 = useRef(null);
@@ -87,11 +76,6 @@ const Sidebar = ({ onChange, selectedItem, menuItems }) => {
     forceUpdate();
   }, [window.innerWidth]);
 
-  const onItemClicked = (item) => {
-    setExpanded(false);
-    return onChange(item);
-  };
-
   const toggleMenu = () => setExpanded(!expanded);
 
   const renderBurger = () => (
@@ -101,7 +85,7 @@ const Sidebar = ({ onChange, selectedItem, menuItems }) => {
   );
 
   return (
-    <div style={{ position: 'relative' }}>
+    <div style={{ position: 'relative' }} className="sidebar">
       <Row
         componentRef={(element) => (input1.current = element)}
         className={css(styles.mainContainer)}
@@ -129,13 +113,11 @@ const Sidebar = ({ onChange, selectedItem, menuItems }) => {
                 <MenuItemComponent
                   title={o.title}
                   icon={o.icon}
-                  onClick={() => onItemClicked(o.key)}
-                  active={selectedItem === o.key}
                   key={o.key}
+                  link={o.path}
                 />
               ))
             }
-            <div className={css(styles.separator)} />
           </Column>
         </Column>
         {isMobile && expanded && (
@@ -147,7 +129,7 @@ const Sidebar = ({ onChange, selectedItem, menuItems }) => {
       </Row>
     </div>
   );
-}
+};
 
 Sidebar.propTypes = {
   menuItems: propTypes.arrayOf(
@@ -157,8 +139,6 @@ Sidebar.propTypes = {
       icon: propTypes.string.isRequired,
     }),
   ).isRequired,
-  selectedItem: propTypes.string.isRequired,
-  onChange: propTypes.func.isRequired,
 };
 
 export default Sidebar;

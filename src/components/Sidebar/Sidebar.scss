@@ -1,6 +1,7 @@
 @import '../../variables';
 
 .sidebar {
+    border-right: 1px solid $gray;
     &-container {
         background-color: $dark;
     }
@@ -12,7 +13,7 @@
 }
 
 .title {
-    color: $light-gray;
+    color: $gray;
 }
 
 .active {

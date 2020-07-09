@@ -1,8 +1,12 @@
+/* eslint-disable react/forbid-prop-types */
+/* eslint-disable react/require-default-props */
+/* eslint-disable no-restricted-globals */
 import React from 'react';
 import propTypes from 'prop-types';
 import { Row } from 'simple-flexbox';
 import { StyleSheet, css } from 'aphrodite';
 import classnames from 'classnames';
+import { Link, useHistory, withRouter } from 'react-router-dom';
 
 const styles = StyleSheet.create({
   activeBar: {
@@ -32,20 +36,31 @@ const styles = StyleSheet.create({
   },
 });
 
-function MenuItemComponent({ active, icon, title, ...otherProps}) {
+function MenuItemComponent({
+  icon, title, link, location,
+}) {
+  const history = useHistory();
+
+  const changeTab = () => {
+    history.push(link);
+  };
+
+  const active = location.pathname === link;
+
   return (
-    <Row className={classnames(css(styles.container, active && styles.activeContainer), 'menu-item')} vertical="center" {...otherProps}>
-      {active && <div className={classnames(css(styles.activeBar), 'active-bar')} />}
-      <span className={classnames(icon, active ? 'yellow' : 'light-gray')} />
+    <Row className={classnames(css(styles.container, active && styles.activeContainer), 'menu-item')} vertical="center" onClick={() => changeTab()}>
+      { active && <div className={classnames(css(styles.activeBar), 'active-bar')} />}
+      <span className={classnames(icon, active ? 'yellow' : 'gray')} />
       <span className={classnames(css(styles.title, active && styles.activeTitle), { 'active-title': active }, 'title')}>{title}</span>
     </Row>
   );
 }
 
 MenuItemComponent.propTypes = {
-  active: propTypes.bool.isRequired,
   icon: propTypes.string.isRequired,
   title: propTypes.string.isRequired,
+  link: propTypes.string.isRequired,
+  location: propTypes.object,
 };
 
-export default MenuItemComponent;
+export default withRouter(MenuItemComponent);

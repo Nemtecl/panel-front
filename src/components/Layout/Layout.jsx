@@ -15,9 +15,9 @@ const styles = StyleSheet.create({
   },
 });
 
-const Layout = ({ selectedItem, children }) => (
+const Layout = ({ children }) => (
   <Column flexGrow={1} className={classnames(css(styles.mainBlock), 'main-block')}>
-    <Header title={selectedItem} />
+    <Header />
     <div className={css(styles.content)}>
       { children }
     </div>
@@ -25,7 +25,6 @@ const Layout = ({ selectedItem, children }) => (
 );
 
 Layout.propTypes = {
-  selectedItem: propTypes.string.isRequired,
   children: propTypes.oneOfType([
     propTypes.arrayOf(propTypes.node),
     propTypes.node,

@@ -64,24 +64,17 @@ const styles = StyleSheet.create({
   },
 });
 
-function HeaderComponent(props) {
-  const { icon, title, ...otherProps } = props;
+function HeaderComponent() {
   return (
-    <Row className={css(styles.container)} vertical="center" horizontal="space-between" {...otherProps}>
-      <span className={css(styles.title)}>{title}</span>
+    <Row className={css(styles.container)} vertical="center" horizontal="space-between">
+      <span className={css(styles.title)}>titre</span>
       <Row vertical="center">
-        <div className={css(styles.separator)} />
         <Row vertical="center">
           <span className={css(styles.name, styles.cursorPointer)}>Alexander Bolton</span>
-          <img src="https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/2d/2d8c085fd01f5b1c6355d3f529900dccb64fee6f_full.jpg" alt="avatar" className={classnames(css(styles.avatar, styles.cursorPointer), "rounded-avatar")} />
+          <img src="https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/2d/2d8c085fd01f5b1c6355d3f529900dccb64fee6f_full.jpg" alt="avatar" className={classnames(css(styles.avatar, styles.cursorPointer), 'rounded-avatar')} />
         </Row>
       </Row>
     </Row>
   );
 }
-
-HeaderComponent.propTypes = {
-  title: string,
-};
-
 export default HeaderComponent;
