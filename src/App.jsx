@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { Column, Row } from 'simple-flexbox';
+import { Row } from 'simple-flexbox';
 import { StyleSheet, css } from 'aphrodite';
-import { Header, Sidebar, Content } from './components';
+import { Redirect, Switch, Route } from 'react-router-dom';
+import { Sidebar, Layout, Content, PrivateRoute } from './components';
 import Users from './pages/Users/Users';
 import Login from './pages/Login/Login';
 import Vehicles from './pages/Vehicles/Vehicles';
@@ -12,13 +13,6 @@ const styles = StyleSheet.create({
     height: '100%',
     minHeight: '100vh',
   },
-  content: {
-    marginTop: 54,
-  },
-  mainBlock: {
-    backgroundColor: '#F7F8FC',
-    padding: 30,
-  },
 });
 
 const App = () => {
@@ -27,13 +21,15 @@ const App = () => {
       key: 'Users',
       title: 'Utilisateurs',
       icon: 'fas fa-users',
-      component: Users,
+      path: '/users',
+      component: Content,
     },
     {
       key: 'Vehicles',
       title: 'Véhicules',
       icon: 'fas fa-car',
-      component: Vehicles,
+      path: '/vehicles',
+      component: Content,
     },
   ];
 
@@ -41,8 +37,6 @@ const App = () => {
   const [, updateState] = useState();
 
   const resize = () => updateState({});
-
-
 
   useEffect(() => {
     window.addEventListener('resize', resize);
@@ -57,12 +51,17 @@ const App = () => {
         onChange={(newItem) => setSelectedItem(newItem)}
         menuItems={menuItems}
       />
-      <Column flexGrow={1} className={css(styles.mainBlock)}>
-        <Header title={selectedItem} />
-        <div className={css(styles.content)}>
-          <Content />
-        </div>
-      </Column>
+      <Layout selectedItem={selectedItem}>
+        <Switch>
+          <Redirect exact from="/" to="/login" />
+          <Route exact path="/login" component={Content} />
+          {
+            menuItems.map((o) => (
+              <PrivateRoute exact path={o.path} component={o.component} />
+            ))
+          }
+        </Switch>
+      </Layout>
     </Row>
   );
 };

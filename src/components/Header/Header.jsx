@@ -2,8 +2,8 @@ import React from 'react';
 import { string } from 'prop-types';
 import { Row } from 'simple-flexbox';
 import { StyleSheet, css } from 'aphrodite';
-import IconSearch from '../../assets/icon-search';
-import IconBellNew from '../../assets/icon-bell-new';
+import classnames from 'classnames';
+import './Header.scss';
 
 const styles = StyleSheet.create({
   avatar: {
@@ -11,7 +11,6 @@ const styles = StyleSheet.create({
     width: 35,
     borderRadius: 50,
     marginLeft: 14,
-    border: '1px solid #DFE0EB',
   },
   container: {
     height: 40,
@@ -74,7 +73,7 @@ function HeaderComponent(props) {
         <div className={css(styles.separator)} />
         <Row vertical="center">
           <span className={css(styles.name, styles.cursorPointer)}>Alexander Bolton</span>
-          <img src="https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/2d/2d8c085fd01f5b1c6355d3f529900dccb64fee6f_full.jpg" alt="avatar" className={css(styles.avatar, styles.cursorPointer)} />
+          <img src="https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/2d/2d8c085fd01f5b1c6355d3f529900dccb64fee6f_full.jpg" alt="avatar" className={classnames(css(styles.avatar, styles.cursorPointer), "rounded-avatar")} />
         </Row>
       </Row>
     </Row>

@@ -8,6 +8,7 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
+  color: $yellow;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -19,10 +20,16 @@ code {
 
 
 $colors: ("yellow": $yellow, "gray": $gray, "dark": $dark, "light-dark": $light-dark,
-        "light-gray": $light-gray);
+        "light-gray": $light-gray, "blue-gray": $blue-gray);
 
-    @each $name, $color in $colors {
-        .#{$name} {
-            color: $color;
-        }
+@each $name, $color in $colors {
+    .#{$name} {
+        color: $color;
     }
+}
+
+@each $name, $color in $colors {
+  .bg-#{$name} {
+      background: $color;
+  }
+}
