@@ -64,11 +64,11 @@ const App = () => {
           <Sidebar menuItems={menuItems} />
           <Layout>
             <Switch>
-              <Redirect exact from="/" to="/login" />
-              <Route exact path="/login" component={Login} />
+              <Redirect exact from="/" to="/users" />
+              {/* <Route exact path="/login" component={Login} /> */}
               {
                 menuItems.map((o) => (
-                  <PrivateRoute exact path={o.path} component={o.component} key={o.key} />
+                  <Route exact path={o.path} component={o.component} key={o.key} />
                 ))
               }
             </Switch>
