@@ -24,14 +24,11 @@ const styles = StyleSheet.create({
   },
   container: {
     width: 255,
-    paddingTop: 32,
-    height: 'calc(100% - 32px)',
   },
   containerMobile: {
     transition: 'left 0.5s, right 0.5s',
     position: 'absolute',
     width: 255,
-    height: 'calc(100% - 32px)',
     zIndex: 901,
   },
   mainContainer: {
@@ -85,7 +82,7 @@ const Sidebar = ({ menuItems }) => {
   );
 
   return (
-    <div style={{ position: 'relative' }} className="sidebar">
+    <div className="sidebar">
       <Row
         componentRef={(element) => (input1.current = element)}
         className={css(styles.mainContainer)}
