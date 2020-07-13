@@ -1,14 +1,14 @@
 import React from 'react';
-import { string } from 'prop-types';
 import { Row } from 'simple-flexbox';
 import { StyleSheet, css } from 'aphrodite';
 import classnames from 'classnames';
 import './Header.scss';
+import Breadcrumb from '../Breadcrumb/Breadcrumb';
 
 const styles = StyleSheet.create({
   avatar: {
-    height: 35,
-    width: 35,
+    height: 45,
+    width: 45,
     borderRadius: 50,
     marginLeft: 14,
   },
@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Muli',
     fontStyle: 'normal',
     fontWeight: 600,
-    fontSize: 14,
+    fontSize: 16,
     lineHeight: '20px',
     textAlign: 'right',
     letterSpacing: 0.2,
@@ -66,12 +66,25 @@ const styles = StyleSheet.create({
 
 function HeaderComponent() {
   return (
-    <Row className={css(styles.container)} vertical="center" horizontal="space-between">
-      <span className={css(styles.title)}>titre</span>
+    <Row
+      className={css(styles.container)}
+      vertical="center"
+      horizontal="space-between"
+    >
+      <Breadcrumb />
       <Row vertical="center">
         <Row vertical="center">
-          <span className={css(styles.name, styles.cursorPointer)}>Alexander Bolton</span>
-          <img src="https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/2d/2d8c085fd01f5b1c6355d3f529900dccb64fee6f_full.jpg" alt="avatar" className={classnames(css(styles.avatar, styles.cursorPointer), 'rounded-avatar')} />
+          <span className={css(styles.name, styles.cursorPointer)}>
+            Alexander Bolton
+          </span>
+          <img
+            src="https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/2d/2d8c085fd01f5b1c6355d3f529900dccb64fee6f_full.jpg"
+            alt="avatar"
+            className={classnames(
+              css(styles.avatar, styles.cursorPointer),
+              'rounded-avatar',
+            )}
+          />
         </Row>
       </Row>
     </Row>

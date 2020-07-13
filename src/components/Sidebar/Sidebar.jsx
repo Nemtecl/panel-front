@@ -1,132 +1,49 @@
-/* eslint-disable no-restricted-globals */
-/* eslint-disable global-require */
-/* eslint-disable no-return-assign */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-/* eslint-disable jsx-a11y/no-static-element-interactions */
-import React, {
-  useCallback, useEffect, useState, useRef,
-} from 'react';
+import React from 'react';
 import propTypes from 'prop-types';
-import { Column, Row } from 'simple-flexbox';
-import { StyleSheet, css } from 'aphrodite';
-import classnames from 'classnames';
-import LogoComponent from './LogoComponent';
-import MenuItemComponent from './MenuItemComponent';
-import IconBurger from '../../assets/icon-burger';
 import './Sidebar.scss';
+import { withRouter } from 'react-router-dom';
+import Logo from '../../assets/unitedroleplay.png';
+import MenuItem from './MenuItem';
 
-const styles = StyleSheet.create({
-  burgerIcon: {
-    cursor: 'pointer',
-    position: 'absolute',
-    left: 24,
-    top: 34,
-  },
-  container: {
-    width: 255,
-  },
-  containerMobile: {
-    transition: 'left 0.5s, right 0.5s',
-    position: 'absolute',
-    width: 255,
-    zIndex: 901,
-  },
-  mainContainer: {
-    height: '100%',
-    minHeight: '100vh',
-  },
-  mainContainerMobile: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-  },
-  mainContainerExpanded: {
-    width: '100%',
-    minWidth: '100vh',
-  },
-  outsideLayer: {
-    position: 'absolute',
-    width: '100vw',
-    minWidth: '100%',
-    height: '100%',
-    backgroundColor: 'rgba(0,0,0,.50)',
-    zIndex: 900,
-  },
-  hide: {
-    left: -255,
-  },
-  show: {
-    left: 0,
-  },
-});
+const Sidebar = ({ menuItems }) => (
+  <nav className="navbar-container">
+    <ul className="navbar-nav">
+      <li className="logo">
+        <div className="nav-link">
+          <span className="link-text logo-text">United</span>
+          {/* <img className="link-text logo-text" alt="united-logo" src={Logo} /> */}
+          <svg
+            aria-hidden="true"
+            focusable="false"
+            data-prefix="fad"
+            data-icon="angle-double-right"
+            role="img"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 448 512"
+            className="svg-inline--fa fa-angle-double-right fa-w-14 fa-5x"
+          >
+            <g className="fa-group">
+              <path
+                fill="currentColor"
+                d="M224 273L88.37 409a23.78 23.78 0 0 1-33.8 0L32 386.36a23.94 23.94 0 0 1 0-33.89l96.13-96.37L32 159.73a23.94 23.94 0 0 1 0-33.89l22.44-22.79a23.78 23.78 0 0 1 33.8 0L223.88 239a23.94 23.94 0 0 1 .1 34z"
+                className="fa-secondary"
+              />
+              <path
+                fill="currentColor"
+                d="M415.89 273L280.34 409a23.77 23.77 0 0 1-33.79 0L224 386.26a23.94 23.94 0 0 1 0-33.89L320.11 256l-96-96.47a23.94 23.94 0 0 1 0-33.89l22.52-22.59a23.77 23.77 0 0 1 33.79 0L416 239a24 24 0 0 1-.11 34z"
+                className="fa-primary"
+              />
+            </g>
+          </svg>
+        </div>
+      </li>
 
-const Sidebar = ({ menuItems }) => {
-  const [expanded, setExpanded] = useState(false);
-  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
-  const input1 = useRef(null);
-
-  const [, updateState] = React.useState();
-  const forceUpdate = useCallback(() => updateState({}), []);
-
-  useEffect(() => {
-    setIsMobile(window.innerWidth <= 768);
-    forceUpdate();
-  }, [window.innerWidth]);
-
-  const toggleMenu = () => setExpanded(!expanded);
-
-  const renderBurger = () => (
-    <div onClick={toggleMenu} className={css(styles.burgerIcon)}>
-      <IconBurger />
-    </div>
-  );
-
-  return (
-    <div className="sidebar">
-      <Row
-        componentRef={(element) => (input1.current = element)}
-        className={css(styles.mainContainer)}
-        breakpoints={{
-          768: css(
-            styles.mainContainerMobile,
-            expanded && styles.mainContainerExpanded,
-          ),
-        }}
-      >
-        {isMobile && !expanded && renderBurger()}
-        <Column
-          className={classnames(css(styles.container), 'sidebar-container')}
-          breakpoints={{
-            768: css(
-              styles.containerMobile,
-              expanded ? styles.show : styles.hide,
-            ),
-          }}
-        >
-          <LogoComponent />
-          <Column>
-            {
-              menuItems.map((o) => (
-                <MenuItemComponent
-                  title={o.title}
-                  icon={o.icon}
-                  key={o.key}
-                  link={o.path}
-                />
-              ))
-            }
-          </Column>
-        </Column>
-        {isMobile && expanded && (
-          <div
-            className={css(styles.outsideLayer)}
-            onClick={toggleMenu}
-          />
-        )}
-      </Row>
-    </div>
-  );
-};
+      {menuItems.map((o) => (
+        <MenuItem key={o.key} icon={o.icon} title={o.title} link={o.path} />
+      ))}
+    </ul>
+  </nav>
+);
 
 Sidebar.propTypes = {
   menuItems: propTypes.arrayOf(
@@ -134,8 +51,9 @@ Sidebar.propTypes = {
       key: propTypes.string.isRequired,
       title: propTypes.string.isRequired,
       icon: propTypes.string.isRequired,
+      path: propTypes.string.isRequired,
     }),
   ).isRequired,
 };
 
-export default Sidebar;
+export default withRouter(Sidebar);

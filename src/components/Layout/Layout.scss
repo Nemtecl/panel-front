@@ -1,5 +1,17 @@
-@import '../../variables';
+@import "../../variables";
 
 .main-block {
-    background: $dark;
+  background: $dark;
+}
+
+main {
+  margin-left: 5rem;
+  padding: 1rem;
+  width: 100%;
+}
+
+@media only screen and (max-width: 600px) {
+  main {
+    margin: 0;
+  }
 }

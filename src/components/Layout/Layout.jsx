@@ -16,12 +16,12 @@ const styles = StyleSheet.create({
 });
 
 const Layout = ({ children }) => (
-  <Column flexGrow={1} className={classnames(css(styles.mainBlock), 'main-block')}>
-    <Header />
-    <div className={css(styles.content)}>
-      { children }
-    </div>
-  </Column>
+  <main className="main-block">
+    <Column flexGrow={1} className={classnames(css(styles.mainBlock))}>
+      <Header />
+      <div className={css(styles.content)}>{children}</div>
+    </Column>
+  </main>
 );
 
 Layout.propTypes = {

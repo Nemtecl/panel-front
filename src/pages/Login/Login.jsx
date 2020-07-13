@@ -1,5 +1,3 @@
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-/* eslint-disable jsx-a11y/no-static-element-interactions */
 import React from 'react';
 import queryString from 'query-string';
 import { Redirect } from 'react-router-dom';
@@ -22,10 +20,9 @@ const Login = () => {
     document.addEventListener('mousemove', handleMouseMouve);
     const openidParams = queryString.parse(window.location.search);
     if (Object.keys(openidParams).length > 0) {
-      Auth.login({ openidParams })
-        .then((d) => {
-          setToken(d.id_token);
-        });
+      Auth.login({ openidParams }).then((d) => {
+        setToken(d.id_token);
+      });
     }
   });
 

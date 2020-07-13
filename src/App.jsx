@@ -1,16 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { Row } from 'simple-flexbox';
 import { StyleSheet, css } from 'aphrodite';
-import {
-  Redirect, Switch, Route, withRouter,
-} from 'react-router-dom';
+import { Redirect, Switch, Route, withRouter } from 'react-router-dom';
 import { MuiThemeProvider } from '@material-ui/core';
-import {
-  Sidebar, Layout, PrivateRoute,
-} from './components';
+import { Sidebar, Layout, PrivateRoute } from './components';
 import { AuthContext } from './context/AuthContext';
 import Users from './pages/Users/Users';
 import Login from './pages/Login/Login';
+import About from './pages/About/About';
 import Vehicles from './pages/Vehicles/Vehicles';
 import './App.scss';
 import { muiTheme } from './plugins';
@@ -23,7 +20,9 @@ const styles = StyleSheet.create({
 });
 
 const App = () => {
-  const t = localStorage.getItem('token') ? JSON.parse(localStorage.getItem('token')) : null;
+  const t = localStorage.getItem('token')
+    ? JSON.parse(localStorage.getItem('token'))
+    : null;
   const [token, setToken] = useState(t);
 
   const updateToken = (data) => {
@@ -46,6 +45,13 @@ const App = () => {
       path: '/vehicles',
       component: Vehicles,
     },
+    {
+      key: 'About',
+      title: 'Informations',
+      icon: 'fas fa-question-circle',
+      path: '/about',
+      component: About,
+    },
   ];
 
   const [, updateState] = useState();
@@ -66,11 +72,14 @@ const App = () => {
             <Switch>
               <Redirect exact from="/" to="/users" />
               {/* <Route exact path="/login" component={Login} /> */}
-              {
-                menuItems.map((o) => (
-                  <Route exact path={o.path} component={o.component} key={o.key} />
-                ))
-              }
+              {menuItems.map((o) => (
+                <Route
+                  exact
+                  path={o.path}
+                  component={o.component}
+                  key={o.key}
+                />
+              ))}
             </Switch>
           </Layout>
         </Row>
