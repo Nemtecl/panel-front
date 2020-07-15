@@ -3,6 +3,6 @@ import Header from './Header/Header';
 import PrivateRoute from './PrivateRoute/PrivateRoute';
 import Content from './Content/Content';
 import Layout from './Layout/Layout';
-import Breadcrumb from './Breadcrumb/Breadcrumb';
+import Breadcrumbs from './Breadcrumbs/Breadcrumbs';
 
-export { Sidebar, Header, PrivateRoute, Content, Layout, Breadcrumb };
+export { Sidebar, Header, PrivateRoute, Content, Layout, Breadcrumbs };

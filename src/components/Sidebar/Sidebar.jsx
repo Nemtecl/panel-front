@@ -10,8 +10,7 @@ const Sidebar = ({ menuItems }) => (
     <ul className="navbar-nav">
       <li className="logo">
         <div className="nav-link">
-          <span className="link-text logo-text">United</span>
-          {/* <img className="link-text logo-text" alt="united-logo" src={Logo} /> */}
+          <span className="link-text logo-text">United RP</span>
           <svg
             aria-hidden="true"
             focusable="false"

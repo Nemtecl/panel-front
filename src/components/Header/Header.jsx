@@ -3,7 +3,7 @@ import { Row } from 'simple-flexbox';
 import { StyleSheet, css } from 'aphrodite';
 import classnames from 'classnames';
 import './Header.scss';
-import Breadcrumb from '../Breadcrumb/Breadcrumb';
+import Breadcrumbs from '../Breadcrumbs/Breadcrumbs';
 
 const styles = StyleSheet.create({
   avatar: {
@@ -71,7 +71,7 @@ function HeaderComponent() {
       vertical="center"
       horizontal="space-between"
     >
-      <Breadcrumb />
+      <Breadcrumbs />
       <Row vertical="center">
         <Row vertical="center">
           <span className={css(styles.name, styles.cursorPointer)}>
