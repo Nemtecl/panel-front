@@ -3,7 +3,7 @@ import { Row } from 'simple-flexbox';
 import { StyleSheet, css } from 'aphrodite';
 import { Redirect, Switch, Route, withRouter } from 'react-router-dom';
 import { MuiThemeProvider } from '@material-ui/core';
-import { Sidebar, Layout, PrivateRoute } from './components';
+import { Sidebar, Layout, PrivateRoute, Loader } from './components';
 import { AuthContext } from './context/AuthContext';
 import Users from './pages/Users/Users';
 import Login from './pages/Login/Login';
@@ -65,25 +65,27 @@ const App = () => {
 
   return (
     <MuiThemeProvider theme={muiTheme}>
-      <AuthContext.Provider value={{ token, setToken: updateToken }}>
-        <Row className={css(styles.container)}>
-          <Sidebar menuItems={menuItems} />
-          <Layout>
-            <Switch>
-              <Redirect exact from="/" to="/users" />
-              {/* <Route exact path="/login" component={Login} /> */}
-              {menuItems.map((o) => (
-                <Route
-                  exact
-                  path={o.path}
-                  component={o.component}
-                  key={o.key}
-                />
-              ))}
-            </Switch>
-          </Layout>
-        </Row>
-      </AuthContext.Provider>
+      <Loader>
+        <AuthContext.Provider value={{ token, setToken: updateToken }}>
+          <Row className={css(styles.container)}>
+            <Sidebar menuItems={menuItems} />
+            <Layout>
+              <Switch>
+                <Redirect exact from="/" to="/users" />
+                {/* <Route exact path="/login" component={Login} /> */}
+                {menuItems.map((o) => (
+                  <Route
+                    exact
+                    path={o.path}
+                    component={o.component}
+                    key={o.key}
+                  />
+                ))}
+              </Switch>
+            </Layout>
+          </Row>
+        </AuthContext.Provider>
+      </Loader>
     </MuiThemeProvider>
   );
 };
